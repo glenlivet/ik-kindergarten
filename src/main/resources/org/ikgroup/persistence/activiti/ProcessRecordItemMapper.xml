@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ikgroup.persistence.activiti.ProcessRecordItemMapper">
+	
+	<insert id="add" parameterType="ProcessRecordItem">
+		INSERT INTO ACTIVITI.IK_PROCRCRDITEM (
+		ID_, TYPE_, REL_KEY_, RESP_, RESULT_, MSG_, TIME_, PROC_INST_ID_
+		) VALUES (
+			#{id},
+			#{type},
+			#{relativeKey},
+			#{responsible},
+			#{result},
+			#{message},
+			#{time},
+			#{instanceId}
+		)
+	</insert>
+	
+</mapper>
