@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="vacationRequestSub" isExecutable="true">
+    <startEvent id="start_" name="Start process">
+      <extensionElements>
+        <activiti:formProperty id="applicant" name="申请人" type="string" variable="starter_" writable="true" required="true"></activiti:formProperty>
+        <activiti:formProperty id="leaveDate" name="起始时间" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="backDate" name="报到时间" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="totalDays" name="请假总天数" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="事由" type="string" writable="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="fillApplication" name="Fill the application" activiti:assignee="${starter_}">
+      <documentation>开始任务，填写休假申请。</documentation>
+    </userTask>
+    <userTask id="managerApproval" name="Manager approval">
+      <documentation>经理审批</documentation>
+      <extensionElements>
+        <activiti:formProperty id="applicant" name="申请人" type="string" variable="starter_"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-ADAE67EE-9C14-48EF-8F3E-78067CBB4EE7" sourceRef="start_" targetRef="fillApplication"></sequenceFlow>
+    <sequenceFlow id="sid-BEC38A7C-3551-44A2-B9D5-82EE49920A64" sourceRef="fillApplication" targetRef="managerApproval"></sequenceFlow>
+    <endEvent id="end_" name="End process"></endEvent>
+    <userTask id="hrRecord" name="H.R. record">
+      <documentation>人力资源备案</documentation>
+      <extensionElements>
+        <activiti:formProperty id="applicant" name="申请人" type="string" variable="starter_"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-EF2A3F76-C2E0-408C-B98E-64BA42B23DF6" sourceRef="managerApproval" targetRef="hrRecord"></sequenceFlow>
+    <sequenceFlow id="sid-FA749939-FE31-47ED-BA36-2CE5DBC38A52" sourceRef="hrRecord" targetRef="end_"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+    <bpmndi:BPMNPlane bpmnElement="process" id="BPMNPlane_process">
+      <bpmndi:BPMNShape bpmnElement="start_" id="BPMNShape_start_">
+        <omgdc:Bounds height="30.0" width="30.0" x="150.0" y="94.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="fillApplication" id="BPMNShape_fillApplication">
+        <omgdc:Bounds height="80.0" width="100.0" x="270.0" y="69.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="managerApproval" id="BPMNShape_managerApproval">
+        <omgdc:Bounds height="80.0" width="100.0" x="465.0" y="69.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end_" id="BPMNShape_end_">
+        <omgdc:Bounds height="28.0" width="28.0" x="855.0" y="95.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="hrRecord" id="BPMNShape_hrRecord">
+        <omgdc:Bounds height="80.0" width="100.0" x="660.0" y="69.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-ADAE67EE-9C14-48EF-8F3E-78067CBB4EE7" id="BPMNEdge_sid-ADAE67EE-9C14-48EF-8F3E-78067CBB4EE7">
+        <omgdi:waypoint x="180.0" y="109.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="109.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-BEC38A7C-3551-44A2-B9D5-82EE49920A64" id="BPMNEdge_sid-BEC38A7C-3551-44A2-B9D5-82EE49920A64">
+        <omgdi:waypoint x="370.0" y="109.0"></omgdi:waypoint>
+        <omgdi:waypoint x="465.0" y="109.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-EF2A3F76-C2E0-408C-B98E-64BA42B23DF6" id="BPMNEdge_sid-EF2A3F76-C2E0-408C-B98E-64BA42B23DF6">
+        <omgdi:waypoint x="565.0" y="109.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="109.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-FA749939-FE31-47ED-BA36-2CE5DBC38A52" id="BPMNEdge_sid-FA749939-FE31-47ED-BA36-2CE5DBC38A52">
+        <omgdi:waypoint x="760.0" y="109.0"></omgdi:waypoint>
+        <omgdi:waypoint x="855.0" y="109.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,7 +1,9 @@
 package org.ikgroup.service.activiti;
 
+import java.util.List;
 import java.util.Map;
 
+import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.runtime.ProcessInstance;
 
 /**
@@ -20,6 +22,8 @@ public interface ProcessOperationService {
 	 * @param userId	发起人id
 	 */
 	public ProcessInstance startProcessInstanceByKey(String processKey, String userId, Map<String,Object> variables);
+	
+	public ProcessInstance startProcessInstanceByKey(String processKey, Map<String, String> properties, String userId);
 	
 	/**
 	 * 撤销流程

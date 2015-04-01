@@ -12,7 +12,7 @@
 		<!-- <property name="asyncExecutorEnabled" value="true" /> -->
 		<!-- <property name="asyncExecutorActivate" value="false" /> -->
 
-		<property name="history" value="audit" />
+		<property name="history" value="full" />
 		<property name="deploymentResources" value="classpath*:/processes/autodeploy.*.bpmn20.xml" />
 
 	</bean>
