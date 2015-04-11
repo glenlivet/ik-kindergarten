@@ -13,7 +13,18 @@
 		<!-- <property name="asyncExecutorActivate" value="false" /> -->
 
 		<property name="history" value="full" />
-		<property name="deploymentResources" value="classpath*:/processes/autodeploy.*.bpmn20.xml" />
+		<property name="deploymentResources"
+			value="classpath*:/processes/autodeploy.*.bpmn20.xml" />
+
+		<property name="typedEventListeners">
+			<map>
+				<entry key="PROCESS_CANCELLED,PROCESS_COMPLETED">
+					<list>
+						<bean class="org.ikgroup.service.activiti.listener.IkActivitiEventListener" />
+					</list>
+				</entry>
+			</map>
+		</property>
 
 	</bean>
 

@@ -55,9 +55,7 @@ public class ProcessOperationServiceImpl implements ProcessOperationService {
 	@Override
 	public void cancelProcessInstanceByInstanceId(String processInstanceId,
 			String reason, String userId) {
-		ProcessDefinitionImpl pd = (ProcessDefinitionImpl) repositoryService.createProcessDefinitionQuery().processDefinitionKey("rejectionTest").singleResult();
-		ActivityImpl activiti = pd.findActivity("formDocumentation");
-		System.out.println();
+		runtimeService.deleteProcessInstance(processInstanceId, reason);
 	}
 
 	@Override

@@ -23,6 +23,14 @@ public interface ProcessOperationService {
 	 */
 	public ProcessInstance startProcessInstanceByKey(String processKey, String userId, Map<String,Object> variables);
 	
+	/**
+	 * 传入form信息发起流程
+	 * 
+	 * @param processKey
+	 * @param properties
+	 * @param userId
+	 * @return
+	 */
 	public ProcessInstance startProcessInstanceByKey(String processKey, Map<String, String> properties, String userId);
 	
 	/**

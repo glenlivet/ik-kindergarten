@@ -31,4 +31,29 @@ public class ProcessRecordItemServiceImpl implements ProcessRecordItemService {
 		processRecordItemMapper.add(item);
 	}
 
+	@Override
+	public void saveProcessCompletedRecord(String instanceId) {
+		ProcessRecordItem item = new ProcessRecordItem();
+		item.setId(dbIdService.nextId());
+		item.setRelativeKey(instanceId);
+		item.setType(ProcessRecordItem.TYPE_PROCESS_END);
+		item.setTime(new Date());
+		item.setInstanceId(instanceId);
+		processRecordItemMapper.add(item);
+	}
+
+	@Override
+	public void saveProcessCancelledRecord(String instanceId, String userId,
+			String reason) {
+		ProcessRecordItem item = new ProcessRecordItem();
+		item.setId(dbIdService.nextId());
+		item.setRelativeKey(instanceId);
+		item.setType(ProcessRecordItem.TYPE_PROCESS_CANCELLED);
+		item.setTime(new Date());
+		item.setInstanceId(instanceId);
+		item.setResponsible(userId);
+		item.setMessage(reason);
+		processRecordItemMapper.add(item);
+	}
+
 }

@@ -20,30 +20,6 @@ public class ProcessOperationController {
 	@Autowired
 	private ProcessOperationService processOperationService;
 	
-	public void startProcess(@RequestParam String processKey, @RequestParam String userId){
-		
-		processOperationService.startProcessInstanceByKey(processKey, userId,null);
-	}
-
-	@RequestMapping(value = "/start", method = RequestMethod.POST)
-	@ResponseBody
-	public void startProcess(@RequestParam String vacationRequestJson){
-		processOperationService.cancelProcessInstanceByInstanceId(null, null, null);
-		
-//		JSONObject vacationRequest = new JSONObject(vacationRequestJson);
-//		JSONObject formProperties = vacationRequest.optJSONObject("formData");
-//		String processKey = vacationRequest.optString("processKey");
-//		String starter_ = vacationRequest.optString("starter_");
-//		@SuppressWarnings("rawtypes")
-//		Iterator i = formProperties.keys();
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		while(i.hasNext()){
-//			String s = i.next().toString();
-//			map.put(s, formProperties.get(s));
-//		}
-//		processOperationService.startProcessInstanceByKey(processKey, starter_, map);
-	}
-	
 	@RequestMapping(value = "/startWithForm", method = RequestMethod.POST)
 	@ResponseBody
 	public void startWithForm(@RequestParam String vacationRequestJson){
