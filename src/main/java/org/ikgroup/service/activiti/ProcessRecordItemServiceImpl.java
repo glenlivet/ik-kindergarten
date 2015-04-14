@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class ProcessRecordItemServiceImpl implements ProcessRecordItemService {
-	
+
 	@Autowired
 	private DbIdService dbIdService;
 

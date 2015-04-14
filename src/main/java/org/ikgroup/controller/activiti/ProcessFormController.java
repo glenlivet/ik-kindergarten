@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/form")
 @Controller
 public class ProcessFormController {
-	
+
 	@Autowired
 	private ProcessFormService processFormService;
-	
+
 	/**
 	 * 获取流程表单信息
 	 * 
@@ -27,13 +27,14 @@ public class ProcessFormController {
 	 */
 	@RequestMapping(value = "/properties", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<FormProperty> getStartFormProperties(@RequestParam String processKey){
+	public List<FormProperty> getStartFormProperties(
+			@RequestParam String processKey) {
 		return processFormService.getStartFormProperties(processKey);
 	}
 
 	@RequestMapping(value = "/taskProperties", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<FormProperty> getTaskFormProperties(@RequestParam String taskId){
+	public List<FormProperty> getTaskFormProperties(@RequestParam String taskId) {
 		return processFormService.getFormProperties(taskId);
 	}
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.activiti.engine.form.FormProperty;
 
-
 /**
  * 表单信息服务
  * 
@@ -12,7 +11,7 @@ import org.activiti.engine.form.FormProperty;
  *
  */
 public interface ProcessFormService {
-	
+
 	/**
 	 * 获取初始化表单元素信息
 	 * 
@@ -24,7 +23,8 @@ public interface ProcessFormService {
 	/**
 	 * 获取某个任务节点的表单元素
 	 * 
-	 * @param taskId	任务节点id
+	 * @param taskId
+	 *            任务节点id
 	 * @return
 	 */
 	public List<FormProperty> getFormProperties(String taskId);

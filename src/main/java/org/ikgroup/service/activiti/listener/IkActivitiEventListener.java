@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class IkActivitiEventListener implements ActivitiEventListener {
-	
+
 	Logger logger = LoggerFactory.getLogger(IkActivitiEventListener.class);
-	
+
 	@Autowired
 	private ProcessRecordItemService processRecordItemSerivce;
 
 	@Override
 	public void onEvent(ActivitiEvent event) {
-		switch(event.getType()){
+		switch (event.getType()) {
 		case PROCESS_CANCELLED:
 			ActivitiEntityEvent e = (ActivitiEntityEvent) event;
 			handleProcessCancelled(e);
@@ -40,8 +40,8 @@ public class IkActivitiEventListener implements ActivitiEventListener {
 	 * @param ev
 	 */
 	private void handleProcessCompleted(ActivitiCancelledEvent ev) {
-		
-		//向流程信息纪录表里查一条纪录
+
+		// 向流程信息纪录表里查一条纪录
 		String instanceId = ev.getProcessInstanceId();
 		processRecordItemSerivce.saveProcessCompletedRecord(instanceId);
 		logger.debug("Process[Id: " + instanceId + "] is completed!");
@@ -53,12 +53,12 @@ public class IkActivitiEventListener implements ActivitiEventListener {
 	 * @param e
 	 */
 	private void handleProcessCancelled(ActivitiEntityEvent e) {
-		//TODO
+		// TODO
 	}
-	
+
 	@Override
 	public boolean isFailOnException() {
-		//onEvent抛出异常时，是否影响事务
+		// onEvent抛出异常时，是否影响事务
 		return true;
 	}
 

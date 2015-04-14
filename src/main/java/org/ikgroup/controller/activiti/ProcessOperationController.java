@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/process")
 @Controller
 public class ProcessOperationController {
-	
+
 	@Autowired
 	private ProcessOperationService processOperationService;
-	
+
 	@RequestMapping(value = "/startWithForm", method = RequestMethod.POST)
 	@ResponseBody
-	public void startWithForm(@RequestParam String vacationRequestJson){
-		
+	public void startWithForm(@RequestParam String vacationRequestJson) {
+
 		JSONObject vacationRequest = new JSONObject(vacationRequestJson);
 		JSONObject formProperties = vacationRequest.optJSONObject("formData");
 		String processKey = vacationRequest.optString("processKey");
@@ -31,10 +31,11 @@ public class ProcessOperationController {
 		@SuppressWarnings("rawtypes")
 		Iterator i = formProperties.keys();
 		Map<String, String> map = new HashMap<String, String>();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			String s = i.next().toString();
 			map.put(s, formProperties.get(s).toString());
 		}
-		processOperationService.startProcessInstanceByKey(processKey, map, starter_);
+		processOperationService.startProcessInstanceByKey(processKey, map,
+				starter_);
 	}
 }

@@ -64,5 +64,5 @@ public class TransitionHandleTask implements ActivityBehavior {
 		pointActivity.getIncomingTransitions().remove(tempTransition);
 		currActivity.getOutgoingTransitions().remove(tempTransition);
 	}
-	
+
 }

@@ -26,48 +26,50 @@ public class TaskOperationController {
 
 	@Autowired
 	private TaskService taskService;
-	
+
 	@Autowired
 	private RuntimeService runtimeService;
 
 	@Autowired
 	private RepositoryService repositoryService;
-	
+
 	@RequestMapping(value = "/complete", method = RequestMethod.POST)
 	@ResponseBody
-	public void complete(String taskId){
+	public void complete(String taskId) {
 		taskService.complete(taskId);
 	}
-	
-	@RequestMapping(value="/test", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
-	public void test(@RequestParam String taskId){
-		TaskEntity task = (TaskEntity) taskService.createTaskQuery().taskId(taskId).singleResult();
+	public void test(@RequestParam String taskId) {
+		TaskEntity task = (TaskEntity) taskService.createTaskQuery()
+				.taskId(taskId).singleResult();
 		String activityId = task.getTaskDefinitionKey();
-		ActivityExecution execution = (ActivityExecution) runtimeService.createExecutionQuery().activityId(activityId).singleResult();
+		ActivityExecution execution = (ActivityExecution) runtimeService
+				.createExecutionQuery().activityId(activityId).singleResult();
 		String processDefinitionId = execution.getProcessDefinitionId();
 		ProcessDefinitionImpl pd = (ProcessDefinitionImpl) ((RepositoryServiceImpl) repositoryService)
 				.getDeployedProcessDefinition(processDefinitionId);
-		
+
 		ActivityImpl pointActivity = pd.findActivity("formDocumentation");
-		ActivityImpl currActivity = (ActivityImpl) pd.findActivity(execution.getCurrentActivityId());
+		ActivityImpl currActivity = (ActivityImpl) pd.findActivity(execution
+				.getCurrentActivityId());
 		// 缓存当前节点的外流transition
 		List<PvmTransition> trans = new ArrayList<PvmTransition>();
-		for(PvmTransition t : currActivity.getOutgoingTransitions()){
+		for (PvmTransition t : currActivity.getOutgoingTransitions()) {
 			trans.add(t);
 		}
-		//清空当前外流trans
+		// 清空当前外流trans
 		currActivity.getOutgoingTransitions().clear();
 		// build a temporary outgoing transition for current activity
-		PvmTransition tempTransition = currActivity
-				.createOutgoingTransition();
+		PvmTransition tempTransition = currActivity.createOutgoingTransition();
 		((TransitionImpl) tempTransition).setDestination(pointActivity);
 		taskService.complete(taskId);
-		
+
 		// remove the temporary transition
 		pointActivity.getIncomingTransitions().remove(tempTransition);
 		currActivity.getOutgoingTransitions().remove(tempTransition);
 		currActivity.getOutgoingTransitions().addAll(trans);
-		
+
 	}
 }
